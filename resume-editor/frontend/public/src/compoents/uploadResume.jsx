@@ -12,6 +12,16 @@ function UploadResume({ setResume }) {
       });
     }
   };
+const handleFileChange = async (e) => {
+  try {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await axios.post
+
 
   return <input type="file" accept=".pdf,.docx" onChange={handleUpload} />;
 }
