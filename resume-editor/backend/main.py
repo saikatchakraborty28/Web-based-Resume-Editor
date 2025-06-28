@@ -36,4 +36,14 @@ def save_resume(req: SaveResumeRequest):
 @app.get("/get-resume")
 def get_resume():
     return resume_store.get("resume", {})
+@app.post("/upload")
+async def upload_resume(file: UploadFile = File(...)):
+    try:
+        if not file.filename.endswith((".txt", ".md")):  # simple check
+            return {"error": "Unsupported file type"}
+        content = await file.read()
+        return {"filename": file.filename, "content": content.decode('utf-8', errors='ignore')}
+    except Exception as e:
+        return {"error": str(e)}
+
                                                                                                                                            
